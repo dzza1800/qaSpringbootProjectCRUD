@@ -1,0 +1,36 @@
+#time{
+    position: fixed;
+    bottom: 0px;
+    font-style: italic;
+    font-family: cursive;
+    font-size: 18px;
+}
+h1{
+    font-family: cursive;
+    position: absolute;
+    left:10%;
+}
+.headImg{
+    position: absolute;
+    width: 10%;
+    top: 0px;
+    left:0%;
+}
+form{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+}
+table {
+  font-family: sans-serif;
+  border-collapse: separate;
+  width: 50%;
+  margin:auto;
+}
+
+td, th {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  text-align: center;
+}

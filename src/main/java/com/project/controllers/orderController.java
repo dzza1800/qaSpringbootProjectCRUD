@@ -1,0 +1,53 @@
+package com.project.controllers;
+
+import java.util.*;
+
+import javax.websocket.server.PathParam;
+
+import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.project.DTO.orderDTO;
+import com.project.entities.orderTable;
+import com.project.repo.OrdersRepo;
+import com.project.service.orderService;
+
+
+@Service
+@RestController
+public class orderController {
+	
+	orderService ac;
+	OrdersRepo repo;
+	orderController(orderService ac, OrdersRepo repo){
+		super();
+		this.ac = ac;
+		this.repo = repo;
+		
+	}
+	
+@RequestMapping("/getAllOrders")
+	public List<orderDTO> getAllOrders() {
+	       return ac.getAllOrders();
+	 }
+
+@PostMapping("/createOrder")
+public orderDTO create(@RequestBody orderTable entity) {
+      return ac.create(entity);
+ }
+
+@PutMapping("/deleteOrder")
+public boolean delete(@PathParam("id") long id) {
+      return ac.delete(id);
+ }
+
+@PutMapping("/updateOrder")
+public orderDTO update(@PathParam("id") long id, @RequestBody orderTable entity) {
+	return ac.update(id, entity);
+ }
+
+}
