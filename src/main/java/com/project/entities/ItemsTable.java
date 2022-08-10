@@ -23,10 +23,10 @@ public class ItemsTable {
 	String ItemName;
 	
 	@Column(unique = true, nullable = false)
-	String uniqueItemID;
+	int uniqueItemID;
 	
 	@Column(nullable = false)
-	long price;
+	double price;
 	
 	@Column(nullable = false)
 	int stock;

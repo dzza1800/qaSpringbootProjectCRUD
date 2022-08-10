@@ -2,7 +2,12 @@
 <html>
     
     <head>
-         <script src= "getAllScript.js"></script>
+        <script src= "getAllScript.js"></script>
+        <script src= "itemsScript.js"></script>
+        <script src= "ordersScript.js"></script>
+        <script src="form.js"></script>
+        <script src="Clock.js"></script>
+        
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>TBD</title>
@@ -12,28 +17,149 @@
        <link rel="stylesheet" href="main.css">
     </head>
     <body onload="clock()">
-        <script src="Clock.js"></script>
+        
         <p id=time></p>
         <img class="headImg" src="ph.png"><h1>Placeholder</h1>
         
-        
-          
-          <table id ="tab">
+      <ul id="button_list">
+       <li><button id="Userbutton" onclick="openUserSection()">Users</button></li>
+       <li><button id="Userbutton" onclick="openCoinsSection()">Coins</button></li>
+       <li><button id="Userbutton" onclick="openOrdersSection()">Orders</button></li>
+        </ul>  
+       <div id = "UserSection">
+           <ul>
+             <li><button id="UserClosebutton" onclick="closeUserSection()">Close</button></li> 
+             <li><button id="FormButton" onclick="createUserForm()">Create</button></li> 
+             <li><button id="FormButton" onclick="updateUserForm()">Update</button></li>
+            <li><button id="FormButton" onclick="deleteUserForm()">Delete</button></li>
+           </ul>
+           
+          <table id ="Users">
   <tr>
-    <th>Username</th>
-    <th>Pass</th>
+    <th></th>
+    <th>Miner Username</th>
+    <th>Coin Mined</th>
   </tr>
   <tr>
   </tr>
         </table>
-        
-       <!-- 
-        <form name="userForm" onsubmit="check()" method="post">
-        <label for="Username">Username:</label><br>
-        <input type="text" id="Username" name="Username"><br>
+                         
+        <form name="userForm" id="CreateUserForm"action="HomePage.html">
+        <label for="Username">MinerUserName:</label><br>
+        <input type="text" id="User" name="Username" required><br>
         <label for="Password">Password:</label><br>
-        <input type="password" id="Password" name="Password"><br><br>
-        <input type="submit" value="Submit">
+        <input type="text" id="Pass" name="Password" required><br><br>
+        <input type="submit" value="Submit" id="submitButton" onclick="submitUser()">
         </form>
-        -->
+           
+        <form name="userUpdateForm" id="UpdateUserForm" action="HomePage.html">
+        <label for="UserID">Update from userID:</label><br>
+        <input type="number" id="userIDUp" name="UserID" required><br>             
+        <label for="Username">MinerUserName:</label><br>
+        <input type="text" id="UserUp" name="Username" required><br>
+        <label for="Password">Password:</label><br>
+        <input type="text" id="PassUp" name="Password" required><br><br>
+        <input type="submit" value="Submit" onclick="updateUser()">
+        </form>
+           
+        <form name="userDeleteForm" id="DeleteUserForm"action="HomePage.html">
+        <label for="UserID">Delete from UserID:</label><br>
+        <input type="number" id="userIDDe" name="UserID" required><br>
+        <input type="submit" value="Submit" onclick="deleteUser()">
+        </form>
+           
+       </div>
+        
+         <div id = "CoinsSection">
+              <ul>
+             <li><button id="UserClosebutton" onclick="closeCoinsSection()">Close</button></li> 
+             <li><button id="FormButton" onclick="createCoinForm()">Create</button></li> 
+             <li><button id="FormButton" onclick="updateCoinForm()">Update</button></li>
+             <li><button id="FormButton" onclick="deleteCoinForm()">Delete</button></li>
+           </ul>
+                  <table id ="Coins">
+  <tr>
+      <th>ID</th>
+    <th>Name</th>
+    <th>Price of 1 coin</th>
+    <th>24h%</th>
+    <th>Coin ID</th>
+  </tr>
+  <tr>
+  </tr>  
+                      </table>
+             
+        <form name="coinsForm" id="CreateCoinForm" action="HomePage.html">
+        <label for="Price">Price  (rounded):</label><br>
+        <input type="number" id="price" name="Price" required><br>
+        <label for="Stock">24h%:</label><br>
+        <input type="text" id="coins" name="Stock" required><br><br>
+        <label for="Name">Name:</label><br>
+        <input type="double" id="name" name="Name" required><br>
+        <label for="UniqueID">UniqueID:</label><br>
+        <input type="number" id="UniqueID" name="UniqueID" required><br><br>
+        <input type="submit" value="Submit" onclick="submitCoin()">
+             </form>
+             
+        <form name="coinsUpdateForm" id="UpdateCoinForm" action="HomePage.html">
+        <label for="ID">Listing ID:</label><br>
+        <input type="number" id="listID" name="ID" required><br><br>
+        <label for="Price">Price (rounded):</label><br>
+        <input type="number" id="priceUp" name="Price" required><br>
+        <label for="Stock">24h%</label><br>
+        <input type="number" id="coinsUp" name="Stock" required><br><br>
+        <label for="Name">Name:</label><br>
+        <input type="text" id="nameUp" name="Name" required><br>
+        <input type="submit" value="Submit" onclick="updateCoin()">
+             </form>
+             
+        <form name="coinsDeleteForm" id="DeleteCoinForm"action="HomePage.html">
+        <label for="ListID">Delete from ID:</label><br>
+        <input type="number" id="ListIDDe" name="ListID" required><br><br>
+        <input type="submit" value="Submit" onclick="deleteCoin()">
+        </form>
+          </div>
+        <div id = "OrderSection"> 
+             <ul>
+             <li><button id="UserClosebutton" onclick="closeOrdersSection()">Close</button></li> 
+             <li><button id="FormButton" onclick="createOrderForm()">Create</button></li> 
+             <li><button id="FormButton" onclick="updateOrderForm()">Update</button></li>
+            <li><button id="FormButton" onclick="deleteOrderForm()">Delete</button></li>
+           </ul>
+                  <table id ="Orders">
+  <tr>
+      <th>ID</th>
+    <th>Order Transaction ID</th>
+    <th>Quantity of items</th>
+    <th>Is in processing?</th>
+  </tr>
+  <tr>
+  </tr>
+        </table>
+        <form name="ordersForm" id="CreateOrderForm"action="HomePage.html">
+        <label for="UniqueID">Transaction ID (Cannot be changed):</label><br>
+        <input type="number" id="transUniqueID" name="UniqueID" required><br>
+        <label for="Quantity">Quantity:</label><br>
+        <input type="number" id="Quantity" name="Quantity" required><br>
+        <label for="Process">isProcessing:</label><br>
+        <input type="text" id="Process" name="Process" required><br><br>
+        <input type="submit" value="Submit" onclick="submitOrder()">
+             </form>
+             
+        <form name="ordersUpdateForm" id="UpdateOrderForm" action="HomePage.html">
+        <label for="orderID">Listing ID:</label><br>
+        <input type="number" id="orderIDUp" name="orderID" required><br>
+        <label for="QuantityUpdate">Quantity:</label><br>
+        <input type="number" id="QuantityUp" name="QuantityUpdate" required><br>
+        <label for="ProcessUpdate">isProcessing:</label><br>
+        <input type="text" id="ProcessUp" name="ProcessUpdate" required><br><br>
+        <input type="submit" value="Submit" onclick="updateOrder()">
+             </form>
+             
+        <form name="ordersDeleteForm" id="DeleteOrderForm"action="HomePage.html">
+        <label for="orderID">Delete from ID:</label><br>
+        <input type="number" id="OrderIDDe" name="orderID" required><br><br>
+        <input type="submit" value="Submit" onclick="deleteOrder()">
+        </form>
+     </div>
     </body>

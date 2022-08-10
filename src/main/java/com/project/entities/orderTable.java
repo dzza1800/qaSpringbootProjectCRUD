@@ -27,4 +27,11 @@ public class orderTable {
 	
 	@Column(unique = false, nullable = false)
 	public boolean isProcessing;
+	
+	public void setProcess(boolean process) {
+		this.isProcessing = process;
+	}
+	public boolean getProcess() {
+		return this.isProcessing;
+	}
 }

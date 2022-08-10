@@ -57,7 +57,7 @@ public orderDTO update(long id, orderTable entity) {
 	Optional<orderTable> existingOptional = this.repo.findById(id);
 	orderTable ent = existingOptional.get();
 	ent.setOrderQuantity(entity.getOrderQuantity());
-	ent.isProcessing();
+	ent.setProcess(entity.getProcess());
 	entity = this.repo.save(ent);
 	return this.MapToDTO(entity);
  }

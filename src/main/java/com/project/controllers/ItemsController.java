@@ -42,12 +42,12 @@ public ItemsDTO create(@RequestBody ItemsTable entity) {
       return ac.create(entity);
  }
 
-@PutMapping("/deleteUsers")
+@PutMapping("/deleteItem")
 public boolean delete(@PathParam("id") long id) {
       return ac.delete(id);
  }
 
-@PutMapping("/updateUsers")
+@PutMapping("/updateItem")
 public ItemsDTO update(@PathParam("id") long id, @RequestBody ItemsTable entity) {
 	return ac.update(id, entity);
  }

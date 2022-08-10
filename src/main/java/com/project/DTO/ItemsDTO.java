@@ -14,9 +14,11 @@ public class ItemsDTO {
 	
 	String ItemName;
 	
-	long price;
+	double price;
 	
 	int stock;
+	
+	int uniqueItemID;
 
 	public ItemsDTO(ItemsTable entity){
 		super();
@@ -24,6 +26,7 @@ public class ItemsDTO {
 		this.ItemName = entity.getItemName();
 		this.price = entity.getPrice();
 		this.stock = entity.getStock();
+		this.uniqueItemID = entity.getUniqueItemID();
 	}
 
 }
