@@ -27,4 +27,5 @@ public interface AcRepo extends JpaRepository<UserTable, Long>{
 	List<UserTable> deleteBySQL(long id);
 	
 	
+	
 }

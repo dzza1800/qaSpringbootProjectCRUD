@@ -28,15 +28,13 @@ fetch("/getAllOrders")
    })
  )
 function submitOrder(){
-    const transactionID = document.getElementById("transUniqueID").value;
     const processID = document.getElementById("Process").value;
     const Quantity = document.getElementById("Quantity").value;
-    let t = confirm("Want to submit a transaction id? "+ transactionID + ":" + Quantity + ":" + processID);
+    let t = confirm("Want to submit a transaction id? " + Quantity + ":" + processID);
     if(t == true){
     fetch("/createOrder?" ,{
         method:"POST",
         body:JSON.stringify({
-        "orderUniqueID": transactionID,
         "isProcessing": processID,
         "orderQuantity":Quantity
           }),
@@ -80,7 +78,7 @@ function deleteOrder(){
     const orderID = document.getElementById("OrderIDDe").value;
     let t = confirm("Want to delete this order? " + orderID);
     if(t == true){
-    fetch(`/deleteOrder?id=${orderID}`,{
+    fetch(`/deleteOrderUnique?id=${orderID}`,{
         method:"PUT"
     }).then(response => response.json()).then(data => {
       console.log(data);

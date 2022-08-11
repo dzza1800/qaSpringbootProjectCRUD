@@ -23,10 +23,10 @@ public class orderTable {
 	private long orderUniqueID;
 	
 	@Column(unique = false, nullable = false)
-	public int orderQuantity;
+	private int orderQuantity;
 	
 	@Column(unique = false, nullable = false)
-	public boolean isProcessing;
+	private boolean isProcessing;
 	
 	public void setProcess(boolean process) {
 		this.isProcessing = process;

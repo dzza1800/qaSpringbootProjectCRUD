@@ -36,16 +36,15 @@ function submitCoin(){
     const price = document.getElementById("price").value;
     const stock = document.getElementById("coins").value;
     const name = document.getElementById("name").value;
-    const uniqueID = document.getElementById("UniqueID").value;
     let t = confirm("Want to add this coin? " + name + ":" + price + ":" + stock);
     if(t == true){
-    fetch("/createItems?" ,{
+    fetch("/createUnique?" ,{
         method:"POST",
         body:JSON.stringify({
         "price": price,
         "stock": stock,
         "itemName": name,
-        "uniqueItemID":uniqueID
+
           }),
         headers:{
           "Content-Type":"application/json"
@@ -90,7 +89,7 @@ function deleteCoin(){
     const ListID = document.getElementById("ListIDDe").value;
     let t = confirm("Want to delete this Coin? " + ListID);
     if(t == true){
-    fetch(`/deleteItem?id=${ListID}`,{
+    fetch(`/deleteItemUnique?id=${ListID}`,{
         method:"PUT"
     }).then(response => response.json()).then(data => {
       console.log(data);

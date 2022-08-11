@@ -41,11 +41,21 @@ public class ItemsController {
 public ItemsDTO create(@RequestBody ItemsTable entity) {
       return ac.create(entity);
  }
+@PostMapping("/createUnique")
+public String createUnique(@RequestBody ItemsTable entity) {
+      return ac.createUni(entity);
+ }
+@PutMapping("/deleteItemUnique")
+public boolean deleteUniqueID(@PathParam("id") long id) {
+      return ac.deleteUniqueID(id);
+ }
+
 
 @PutMapping("/deleteItem")
 public boolean delete(@PathParam("id") long id) {
       return ac.delete(id);
  }
+
 
 @PutMapping("/updateItem")
 public ItemsDTO update(@PathParam("id") long id, @RequestBody ItemsTable entity) {

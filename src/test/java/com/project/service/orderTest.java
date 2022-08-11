@@ -13,31 +13,37 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.project.DTO.AcDTO;
+import com.project.DTO.orderDTO;
 import com.project.boot.EntitiesApplication;
 import com.project.entities.UserTable;
+import com.project.entities.orderTable;
 import com.project.repo.AcRepo;
+import com.project.repo.OrdersRepo;
 
 
 @SpringBootTest(classes= EntitiesApplication.class)
 @ActiveProfiles("test")
-class createTest {
+class orderTest {
 	
 	@Autowired
-	userService service;
+	orderService service;
 
 	
 	@MockBean
-	AcRepo repo;
+	OrdersRepo repo;
 	
 	
 	@Test
 	void TestCreate() {
-		UserTable ent = new UserTable( 0, "23dad", "Test");
+		orderTable ent = new orderTable( 0,100, 100 ,true );
 		Mockito.when(this.repo.save(ent)).thenReturn(ent);
  
 		Assertions.assertEquals(service.create(ent), service.MapToDTO(ent));
@@ -47,22 +53,16 @@ class createTest {
 	
 	@Test
 	void TestRead() {
-		UserTable ent = new UserTable(0, "23dad", "Test");
-		AcDTO dto = new AcDTO(ent);
-		List<UserTable> account = new ArrayList<UserTable>();
-		List<AcDTO> accDTO = new ArrayList<AcDTO>();
+		orderTable ent = new orderTable(0,100, 100 ,true );
+		orderDTO dto = new orderDTO(ent);
+		List<orderTable> account = new ArrayList<orderTable>();
+		List<orderDTO> accDTO = new ArrayList<orderDTO>();
 		accDTO.add(dto);
 		account.add(ent);
 		Mockito.when(this.repo.findAll()).thenReturn(account);
-		Assertions.assertEquals(service.getAllUsers(), accDTO);
+		Assertions.assertEquals(service.getAllOrders(), accDTO);
 	}
-	@Test
-	void TestUpdate() {
-		UserTable ent = new UserTable(1, "23dad", "Test");
-		Mockito.when(this.repo.save(ent)).thenReturn(ent);
-
-		
-	}
+	
 	@Test
 	void TestDelete() {
 		Mockito.doNothing().when(repo).delete(null);

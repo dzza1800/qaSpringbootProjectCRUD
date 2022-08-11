@@ -4,8 +4,10 @@ import java.util.List;
 import java.util.Random;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.project.entities.ItemsTable;
 import com.project.entities.UserTable;
@@ -15,16 +17,22 @@ import com.project.entities.orderTable;
 public interface OrdersRepo extends JpaRepository<orderTable, Long>{
 
 	//Custom queries for orders
-	@Query(value = "SELECT * from order_table", nativeQuery = true)
-	List<orderTable> findAllOrdersBySQL();
 	
-	@Query(value = "INSERT INTO order_table (orderUniqueID, orderQuantity, isProcessing) VALUES (?1, ?2, ?3)", nativeQuery = true)
-	orderTable saveOrdersBySQL(Random rand, int quantity , boolean status);
+	@Query(value = "SELECT * from order_table WHERE order_uniqueid = ?1", nativeQuery = true)
+	orderTable findAllUniqueBySQL(long id);
 	
-	@Query(value = "UPDATE order_table SET isProcessing = ?1, orderQuantity = ?2 WHERE ID = ?3 ", nativeQuery = true)
-	orderTable updateOrdersBySQL(boolean status, int quant, Long id);
+	@Modifying
+	@Transactional
+	@Query(value = "INSERT INTO order_table (order_uniqueid, order_quantity, is_processing) VALUES (?1, ?2, ?3)", nativeQuery = true)
+	void saveOrdersBySQL(long number, int quantity , boolean status);
 	
-	@Query(value = "DELETE FROM order_table WHERE ID = ?1", nativeQuery = true)
-	List<orderTable> deleteOrdersBySQL(long id);
+	@Modifying
+	@Transactional
+	@Query(value = "UPDATE order_table SET order_quantity = ?1, is_processing = ?2 WHERE order_uniqueid = ?3", nativeQuery = true)
+	void updateOrdersBySQL(int quantity , boolean status, long id);
 	
+	@Modifying
+	@Transactional
+	@Query(value = "DELETE FROM order_table WHERE order_uniqueid = ?1", nativeQuery = true)
+	void deleteOrdersBySQLUniqueID(long UniqueID);
 }

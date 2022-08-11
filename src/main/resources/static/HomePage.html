@@ -10,8 +10,8 @@
         
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>TBD</title>
-        <link rel="icon" href="#">
+        <title>Eurobeat Coins</title>
+        <link rel="icon" href="ph.png">
         <meta name="description" content="An interactive getting started guide for Brackets.">
         
        <link rel="stylesheet" href="main.css">
@@ -19,7 +19,8 @@
     <body onload="clock()">
         
         <p id=time></p>
-        <img class="headImg" src="ph.png"><h1>Placeholder</h1>
+        <img class="headImgLeft" src="ph.png"><h1 class = "titleLeft">Eurobeat</h1><h2 class = "titleLeft">Coins</h2>
+        <img class="headImgRight" src="ph.png">
         
       <ul id="button_list">
        <li><button id="Userbutton" onclick="openUserSection()">Users</button></li>
@@ -36,7 +37,7 @@
            
           <table id ="Users">
   <tr>
-    <th></th>
+    <th>ID</th>
     <th>Miner Username</th>
     <th>Coin Mined</th>
   </tr>
@@ -91,13 +92,11 @@
              
         <form name="coinsForm" id="CreateCoinForm" action="HomePage.html">
         <label for="Price">Price  (rounded):</label><br>
-        <input type="number" id="price" name="Price" required><br>
+        <input type="number" pattern="^\d*(\.\d{0,2})?$" id="price" name="Price" required><br>
         <label for="Stock">24h%:</label><br>
         <input type="text" id="coins" name="Stock" required><br><br>
         <label for="Name">Name:</label><br>
-        <input type="double" id="name" name="Name" required><br>
-        <label for="UniqueID">UniqueID:</label><br>
-        <input type="number" id="UniqueID" name="UniqueID" required><br><br>
+        <input type="text" id="name" name="Name" required><br>
         <input type="submit" value="Submit" onclick="submitCoin()">
              </form>
              
@@ -105,7 +104,7 @@
         <label for="ID">Listing ID:</label><br>
         <input type="number" id="listID" name="ID" required><br><br>
         <label for="Price">Price (rounded):</label><br>
-        <input type="number" id="priceUp" name="Price" required><br>
+        <input type="number" pattern="^\d*(\.\d{0,2})?$" id="priceUp" name="Price" required><br>
         <label for="Stock">24h%</label><br>
         <input type="number" id="coinsUp" name="Stock" required><br><br>
         <label for="Name">Name:</label><br>
@@ -114,7 +113,7 @@
              </form>
              
         <form name="coinsDeleteForm" id="DeleteCoinForm"action="HomePage.html">
-        <label for="ListID">Delete from ID:</label><br>
+        <label for="ListID">Delete from Unique ID:</label><br>
         <input type="number" id="ListIDDe" name="ListID" required><br><br>
         <input type="submit" value="Submit" onclick="deleteCoin()">
         </form>
@@ -137,8 +136,6 @@
   </tr>
         </table>
         <form name="ordersForm" id="CreateOrderForm"action="HomePage.html">
-        <label for="UniqueID">Transaction ID (Cannot be changed):</label><br>
-        <input type="number" id="transUniqueID" name="UniqueID" required><br>
         <label for="Quantity">Quantity:</label><br>
         <input type="number" id="Quantity" name="Quantity" required><br>
         <label for="Process">isProcessing:</label><br>
@@ -157,9 +154,10 @@
              </form>
              
         <form name="ordersDeleteForm" id="DeleteOrderForm"action="HomePage.html">
-        <label for="orderID">Delete from ID:</label><br>
+        <label for="orderID">Delete from Unique ID:</label><br>
         <input type="number" id="OrderIDDe" name="orderID" required><br><br>
         <input type="submit" value="Submit" onclick="deleteOrder()">
         </form>
      </div>
+        <iframe src ="https://widget.coinlib.io/widget?type=full_v2&theme=dark&cnt=100&pref_coin_id=1508&graph=yes" name = "video"></iframe>
     </body>

@@ -16,10 +16,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.DTO.AcDTO;
+import com.project.boot.EntitiesApplication;
 import com.project.entities.UserTable;
 
 
-@SpringBootTest
+@SpringBootTest(classes= EntitiesApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
 class ControllerTest {
@@ -38,14 +39,13 @@ class ControllerTest {
 	
 	final Long id = 1L;
 	final UserTable acc = new UserTable(1L, "dsda", "dasdasd");
-	final UserTable acc2 = new UserTable(0, "ds212", "daaaa");
 	@Test
     void testCreateController(){
 		UserTable Acc = acc;
 		Acc.setId(id);
         try {
 			this.mock
-			    .perform(post("/create")
+			    .perform(post("/createUser")
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON)
 			        .content(this.objMap.writeValueAsString(Acc)))
@@ -63,7 +63,7 @@ class ControllerTest {
 		Acc.setId(id);
         try {
 			this.mock
-			    .perform(get("/getAll")
+			    .perform(get("/getAllUsers")
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON)
 			        .content(this.objMap.writeValueAsString(Acc)))

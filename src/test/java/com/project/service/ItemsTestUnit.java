@@ -43,7 +43,7 @@ class ItemsTestUnit {
 	
 	@Test
 	void TestCreate() {
-		ItemsTable ent = new ItemsTable( 0, "car", "124unituqdate", 12354L, 3);
+		ItemsTable ent = new ItemsTable( 0, "car", 1234234234, 12354, 3);
 		Mockito.when(this.repo.save(ent)).thenReturn(ent);
  
 		Assertions.assertEquals(service.create(ent), service.MapToDTO(ent));
@@ -53,7 +53,7 @@ class ItemsTestUnit {
 	
 	@Test
 	void TestRead() {
-		ItemsTable ent = new ItemsTable( 0, "car", "124unituqdate", 12354L, 3);
+		ItemsTable ent = new ItemsTable(  0, "car", 1234234234, 12354, 3);
 		ItemsDTO dto = new ItemsDTO(ent);
 		List<ItemsTable> account = new ArrayList<ItemsTable>();
 		List<ItemsDTO> accDTO = new ArrayList<ItemsDTO>();
