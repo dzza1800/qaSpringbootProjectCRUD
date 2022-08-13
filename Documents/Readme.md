@@ -66,7 +66,7 @@ Add additional notes about how to deploy this on a live system
 
 * [Maven](https://maven.apache.org/) - Dependency Management
 * [Springboot] (https://spring.io/projects/spring-boot) - Back-end programming tool
-* [Jira] https://d-abbas-1800.atlassian.net/jira/software/projects/QAP/boards/2
+* [Jira] (https://d-abbas-1800.atlassian.net/jira/software/projects/FUL/boards/4/)
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning.
