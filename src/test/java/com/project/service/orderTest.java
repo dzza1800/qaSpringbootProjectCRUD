@@ -1,31 +1,21 @@
 package com.project.service;
 
-
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ActiveProfiles;
-
-import com.project.DTO.AcDTO;
 import com.project.DTO.orderDTO;
 import com.project.boot.EntitiesApplication;
-import com.project.entities.UserTable;
+import com.project.entities.ItemsTable;
 import com.project.entities.orderTable;
-import com.project.repo.AcRepo;
 import com.project.repo.OrdersRepo;
 
 
@@ -34,6 +24,7 @@ import com.project.repo.OrdersRepo;
 class orderTest {
 	
 	@Autowired
+	@InjectMocks
 	orderService service;
 
 	
@@ -43,7 +34,11 @@ class orderTest {
 	
 	@Test
 	void TestCreate() {
-		orderTable ent = new orderTable( 0,100, 100 ,true );
+		orderTable ent = new orderTable(1L,100, 100 ,true );
+		Assertions.assertEquals(ent.getId(), 1L);
+		Assertions.assertEquals(ent.getOrderUniqueID(),100 );
+		Assertions.assertEquals(ent.getOrderQuantity(), 100);
+		Assertions.assertEquals(ent.getProcess(), true);
 		Mockito.when(this.repo.save(ent)).thenReturn(ent);
  
 		Assertions.assertEquals(service.create(ent), service.MapToDTO(ent));
@@ -64,8 +59,31 @@ class orderTest {
 	}
 	
 	@Test
+	void TestUpdate() {
+		orderTable ent = new orderTable(1,100, 100 ,true);
+		
+		Mockito.when(this.repo.save(ent)).thenReturn(ent);
+		Mockito.when(this.repo.findById(1L)).thenReturn(Optional.of(ent));
+		
+		ent = new orderTable(0,11, 150 ,false);
+		orderDTO updatedEnt = this.service.update(1L, ent);
+		//unique id should not change, but everything else should
+		Assertions.assertEquals(updatedEnt.getOrderUniqueID(), 100);
+		Assertions.assertEquals(updatedEnt.getOrderQuantity(), 150);
+		Assertions.assertEquals(updatedEnt.getId(), 1);
+	}
+	
+	@Test
 	void TestDelete() {
-		Mockito.doNothing().when(repo).delete(null);
+		long id = 1L;
+		Mockito.when(this.repo.existsById(id)).thenReturn(true);
+		Assertions.assertTrue(this.service.delete(id));
+	}
+	
+	@Test
+	void TestCreateUnique() {
+		orderTable res = new orderTable(1L, 2, true);
+		Assertions.assertEquals(service.createUnique(res), "Order created");
 	}
 
 }

@@ -17,7 +17,7 @@ public interface ItemsRepo extends JpaRepository<ItemsTable, Long>{
 	
 	//Custom queries for items
 	@Query(value = "SELECT * from items_table WHERE unique_itemid = ?1", nativeQuery = true)
-	ItemsTable findAllItemsBySQL(long id);
+	ItemsTable findItemByUniqueIDSQL(long id);
 	
 	@Modifying
 	@Transactional

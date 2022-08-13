@@ -92,7 +92,7 @@
              
         <form name="coinsForm" id="CreateCoinForm" action="HomePage.html">
         <label for="Price">Price  (rounded):</label><br>
-        <input type="number" pattern="^\d*(\.\d{0,2})?$" id="price" name="Price" required><br>
+        <input type="number" min="0" value="0" step="any" id="price" name="Price" required><br>
         <label for="Stock">24h%:</label><br>
         <input type="text" id="coins" name="Stock" required><br><br>
         <label for="Name">Name:</label><br>

@@ -47,5 +47,31 @@ class ItemRepo{
 		Optional<ItemsTable> ent = Optional.of(res);
 		Assertions.assertEquals(this.repo.findById(2L), ent);
 	}
-
+	
+	@Test
+	void TestRepoFind() {
+		Optional<ItemsTable> ent = Optional.of(new ItemsTable(2L,"test2", 1234567, 13, 3));
+		Assertions.assertEquals(this.repo.findById(2L), ent);
+	}
+	@Test
+	void TestRepoDeleteUnique() {
+		Optional<ItemsTable> ent = Optional.empty();
+		this.repo.deleteItemBySQL(123456);
+		Assertions.assertEquals(this.repo.findById(1L), ent);
+	}
+	@Test
+	void TestRepoSaveBySQL() {
+		ItemsTable res = new ItemsTable(5L,"something", 29, 5, 11111);
+		Optional<ItemsTable> ent = Optional.of(res);
+		this.repo.saveItemBySQL(res.getItemName(), res.getPrice(), res.getStock() ,res.getUniqueItemID());
+		
+		Assertions.assertEquals(this.repo.findById(5L), ent);
+	}
+	@Test
+	void TestRepoFindBySQL() {
+		ItemsTable res = new ItemsTable(0,"test2", 1234567, 13, 3);
+		this.repo.save(res);
+		
+		Assertions.assertEquals(this.repo.findItemByUniqueIDSQL(1234567), res);
+	}
 }

@@ -39,6 +39,10 @@ public class orderController {
 public String create(@RequestBody orderTable entity) {
       return ac.createUnique(entity);
  }
+@PostMapping("/createOrderTest")
+public orderDTO createTest(@RequestBody orderTable entity) {
+      return ac.create(entity);
+ }
 
 @PutMapping("/deleteOrder")
 public boolean delete(@PathParam("id") long id) {
@@ -51,7 +55,7 @@ public boolean deleteUnique(@PathParam("id") long id) {
  }
 
 @PutMapping("/updateOrder")
-public void update(@PathParam("id") long id, @RequestBody orderTable entity) {
-	ac.update(id, entity);
+public orderDTO update(@PathParam("id") long id, @RequestBody orderTable entity) {
+	return ac.update(id, entity);
  }
 }

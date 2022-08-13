@@ -61,9 +61,4 @@ public boolean delete(@PathParam("id") long id) {
 public ItemsDTO update(@PathParam("id") long id, @RequestBody ItemsTable entity) {
 	return ac.update(id, entity);
  }
-
-@GetMapping("/test2")
-    public String pageMessage() {
-	       return "<h1>Message Here</h1>";
-     }
 }

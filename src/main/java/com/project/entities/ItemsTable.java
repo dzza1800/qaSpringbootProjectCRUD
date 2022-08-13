@@ -31,5 +31,11 @@ public class ItemsTable {
 	
 	@Column(nullable = false)
 	private int stock;
+	
+	public ItemsTable(String ItemName, double price, int stock){
+		this.ItemName = ItemName;
+		this.price = price;
+		this.stock = stock;
+	}
 
 }

@@ -20,15 +20,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.project.DTO.AcDTO;
+import com.project.DTO.ItemsDTO;
 import com.project.boot.EntitiesApplication;
-import com.project.entities.UserTable;
+import com.project.entities.ItemsTable;
+
 
 
 @SpringBootTest(classes= EntitiesApplication.class)
 @AutoConfigureMockMvc
 @ActiveProfiles("test")
-class ControllerTest {
+class ItemControllerTest {
 	
 	@Autowired
 	MockMvc mock;
@@ -37,28 +38,28 @@ class ControllerTest {
 	@Autowired
 	ObjectMapper objMap;
 	
-	public AcDTO MapToDTO(UserTable entity) {
-		return this.mapper.map(entity, AcDTO.class);
+	public ItemsDTO MapToDTO(ItemsTable entity) {
+		return this.mapper.map(entity, ItemsDTO.class);
 	}
 
 	
 	final long id1 = 1L;
-	final UserTable accCreate = new UserTable(1, "123", "test");
+	final ItemsTable itemCreate = new ItemsTable(1,"test", 123456, 12, 2);
 	final long id2 = 2L;
-	final UserTable accRead = new UserTable(2, "1234", "test2");
+	final ItemsTable itemRead = new ItemsTable(2,"test2", 1234567, 13, 3);
 	final long id3 = 3L;
-	final UserTable accUpdate = new UserTable(3, "12345", "testupdate");
+	final ItemsTable itemUpdate = new ItemsTable(3,"testupdate", 1234568, 14, 4);
 	@BeforeEach
 	void dbWipe() {
 		
 	}
 	@Test
     void testCreateController(){
-		UserTable Acc = accCreate;
+		ItemsTable Acc = itemCreate;
 		Acc.setId(id2);
         try {
 			this.mock
-			    .perform(post("/createUser")
+			    .perform(post("/createItems")
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON)
 			        .content(this.objMap.writeValueAsString(Acc)))
@@ -73,14 +74,13 @@ class ControllerTest {
 	@Test
     void testReadController(){
 	
-		List<UserTable> Acc = new ArrayList<UserTable>();
-		accRead.setId(id2);
-		Acc.add(accRead);
-		Acc.add(accUpdate);
+		List<ItemsTable> Acc = new ArrayList<ItemsTable>();
+		Acc.add(itemRead);
+		Acc.add(itemUpdate);
 		
         try {
 			this.mock
-			    .perform(get("/getAllUsers")
+			    .perform(get("/getAllItems")
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON)
 			        .content(this.objMap.writeValueAsString(Acc)))
@@ -97,7 +97,23 @@ class ControllerTest {
 		long id = id1;
         try {
 			this.mock
-			    .perform(put("/delete?id=" + id)
+			    .perform(put("/deleteItem?id=" + id)
+			        .accept(MediaType.APPLICATION_JSON)
+			        .contentType(MediaType.APPLICATION_JSON))
+			    .andExpect(status().isOk())
+			    .andExpect(content().json("false"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
+	
+	@Test
+	void testDeleteUniqueController(){
+		long id = 12345689;
+        try {
+			this.mock
+			    .perform(put("/deleteItemUnique?id=" + id)
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON))
 			    .andExpect(status().isOk())
@@ -110,10 +126,10 @@ class ControllerTest {
 
 	@Test
     void testUpdateController(){
-		UserTable Acc = accUpdate;
+		ItemsTable Acc = itemUpdate;
         try {
 			this.mock
-			    .perform(put("/update?id=" + id3)
+			    .perform(put("/updateItem?id=" + id3)
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON)
 			        .content(this.objMap.writeValueAsString(Acc)))

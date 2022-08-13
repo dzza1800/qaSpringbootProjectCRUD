@@ -34,4 +34,10 @@ public class orderTable {
 	public boolean getProcess() {
 		return this.isProcessing;
 	}
+	public orderTable(long id, int orderQuantity, boolean isProcessing) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.orderQuantity = orderQuantity;
+		this.isProcessing = isProcessing;
+	}
 }

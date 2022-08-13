@@ -46,26 +46,28 @@ public orderDTO create(orderTable entity) {
 public String createUnique(orderTable entity) {
 	Random rand = new Random();
 	long range = 9999999L;
-	long number = (long)(rand.nextDouble()*range);
+	long number = (long)(rand.nextLong()*range);
     this.repo.saveOrdersBySQL(number, entity.getOrderQuantity(), entity.getProcess());
-    return "Order created with Id: " + number; 
-    //return this.MapToDTO(entity);
+    return "Order created"; 
 }
 
 
 public boolean delete(long id) {
-	  orderTable ent = this.repo.findById(id).orElseThrow(IDNotFoundExceptions::new);
+	if(!this.repo.existsById(id)) {
+		throw new IDNotFoundExceptions();
+	}
+	else {
+
       this.repo.deleteById(id);
       boolean isExist = this.repo.existsById(id);
       return isExist; 
-     
+	}
  }
 public boolean deleteUniqueID(long id) {
 	orderTable ent = this.repo.findAllUniqueBySQL(id);
     this.repo.deleteOrdersBySQLUniqueID(id);
     boolean isExist = this.repo.existsById(id);
     return isExist; 
-   
 }
 
 

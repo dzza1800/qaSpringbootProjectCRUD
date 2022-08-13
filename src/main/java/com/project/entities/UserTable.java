@@ -20,7 +20,7 @@ public class UserTable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
-	@Column(unique = true, nullable = false)
+	@Column(unique = false, nullable = false)
 	private String Password;
 	
 	@Column(unique = true, nullable = false)

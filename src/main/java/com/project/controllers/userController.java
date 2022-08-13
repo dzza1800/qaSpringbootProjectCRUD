@@ -51,8 +51,4 @@ public AcDTO update(@PathParam("id") int id, @RequestBody UserTable entity) {
 	return ac.update(id, entity);
  }
 
-@GetMapping("/test")
-    public String pageMessage() {
-	       return "<h1>Message Here</h1>";
-     }
 }
