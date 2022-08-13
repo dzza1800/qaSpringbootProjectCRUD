@@ -46,7 +46,7 @@ public orderDTO create(orderTable entity) {
 public String createUnique(orderTable entity) {
 	Random rand = new Random();
 	long range = 9999999L;
-	long number = (long)(rand.nextLong()*range);
+	long number = (long)(rand.nextDouble()*range);
     this.repo.saveOrdersBySQL(number, entity.getOrderQuantity(), entity.getProcess());
     return "Order created"; 
 }
