@@ -60,7 +60,7 @@ public boolean deleteUniqueID(long id) {
 	}
 	else {
     this.repo.deleteItemBySQL(id);
-    boolean isExist = this.repo.existsById(id);
+    boolean isExist = true;
     return isExist; 
 	}
 }

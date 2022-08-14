@@ -29,18 +29,6 @@ class User {
     	    driver.findElement(By.id("submitButton")).click();
     	    driver.switchTo().alert().accept();
     }
-
-   /* @Test
-   public void checkUser() {
-        driver.get("http://localhost:8081/HomePage.html");
-        driver.findElement(By.id("Userbutton")).click();
-
-        
-        Assertions.assertEquals(driver.findElement(By.xpath("//table[@id=\'Users\']/td[8]")).getText(), "dsd");
-        Assertions.assertEquals(driver.findElement(By.xpath("//table[@id=\'Users\']/td[9]")).getText(), "dw");
-        
-    }*/
-    
     
 
     @AfterAll

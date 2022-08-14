@@ -1,4 +1,4 @@
-Coverage: 
+Coverage: 82.7%
 # Full stack application - Daniyal Abbas
 
 This project was made with the sole purpose to allow users to interact with crud operations through a website. Using Spring boot for the installation of the back-end in java, with maven being the dependancy management system used and mySQL for data storation and manipulation. The project was allowed to be themed at the developer's discretion and must have the ability to create, read, update and delete assets. At the end a full stack project is then developed and the theme chosen was a crypto coin management system where the database has no relationships and are single to its own data, the tables chosen for this were a miner account table, coin table with a 24% rate and value and finally a final table for blockchain transactions and the number of coins mined/sent and whether it has been processed or not. The function and purpose of this is to keep a record for many things, miner's incentives, how much they mined etc, the number of miners and their details and so on, as mining is already a hard task, keeping a record can help everyone, a miner can use this information to keep in track of their incentives and the rate of crypto, an investor can see a daily statistic of the coins and how much coin exist atm, and finally an admin can use this site to see the number of miners and check whether a coin is worth investing to or not, all in all, this is more of a learning site than an actual management site, but works both ways. This project was also developed with scalability in mind for the ability to improve this project in the future with better features and easier maintenance.
@@ -42,25 +42,22 @@ The second being if you have eclipse, you can go to the marketplace and install 
 <br />
 
 ## Running the tests
-
-Explain how to run the automated tests for this system. Break down into which tests and what they do
-<br />
 There were two tests that were undertaken, Unit testing and integration testing.
 <br />
 Unit testing is a form of testing to test small pieces of code, mainly being variables and constructors to check if they are fit to use. This happens by checking a small piece of code is delivering the expected outcome the developer is trying procure. 
 <br />
 Integration testing is integrating the modules into a group and are testing. Similar to unit testing but without testing smaller code, its a combined set hence being fit for code that is integrated into different methods and is used to check if the method is fit for use.
 
-### Unit Testing
+### Testing
+During unit testing, I was able to reach a coverage of 82% while some percentages were knocked off due to minor variables not being recognised as testing. From the liked screenshots we can see both unit testing which was undertaken through all classes, and integration testing which was only undertaken on the controller class all reaching 82% coverage from the main program, hence reaching the industry standard. Selenium testing was also undertaken and is shown in the screenshot hence 4 tests taking 20 seconds on average to perform as it is running the browser for automated interaction.
 
-### Integration Testing
-```
-Give an example
-```
+![Import Image](Successful_Tests.PNG) </br>
+A screenshot of the successful tests
+</br>
+</br>
+![Import Image](Coverage.PNG)
+A screenshot of the coverages, reaching 82.7% beating the industry standard by 2.7%.
 
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 

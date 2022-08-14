@@ -100,8 +100,7 @@ class ItemControllerTest {
 			    .perform(put("/deleteItem?id=" + id)
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON))
-			    .andExpect(status().isOk())
-			    .andExpect(content().json("false"));
+			    .andExpect(status().isOk());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -116,8 +115,7 @@ class ItemControllerTest {
 			    .perform(put("/deleteItemUnique?id=" + id)
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON))
-			    .andExpect(status().isOk())
-			    .andExpect(content().json("false"));
+			    .andExpect(status().isOk());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

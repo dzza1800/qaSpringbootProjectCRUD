@@ -13,6 +13,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.project.DTO.ItemsDTO;
 import com.project.boot.EntitiesApplication;
 import com.project.entities.ItemsTable;
+import com.project.exceptions.IDNotFoundExceptions;
 import com.project.repo.ItemsRepo;
 
 
@@ -80,6 +81,25 @@ class ItemsTestUnit {
 		Assertions.assertTrue(service.delete(id));
 	}
 	
+	@Test
+	void TestDeleteExceptions() {
+		long id = 0;
+		Mockito.when(this.repo.existsById(id)).thenReturn(false);
+		Assertions.assertThrows(IDNotFoundExceptions.class, () -> this.service.delete(id));
+	}
+	@Test
+	void TestDeleteUnique() {
+		ItemsTable ent = new ItemsTable(1, "car", 1234234234, 12354, 3);
+		long id = 1234234234L;
+		Mockito.when(this.repo.findItemByUniqueIDSQL(id)).thenReturn(ent);
+		Assertions.assertTrue(service.deleteUniqueID(id));
+	}
+	@Test
+	void TestDeleteUniqueException() {
+		
+		long id = 1;
+		Assertions.assertThrows(IDNotFoundExceptions.class, () -> this.service.deleteUniqueID(id));
+	}
 	@Test
 	void TestCreateUnique() {
 		ItemsTable res = new ItemsTable("car", 12354, 3);

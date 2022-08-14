@@ -17,6 +17,7 @@ import org.springframework.test.context.ActiveProfiles;
 import com.project.DTO.AcDTO;
 import com.project.boot.EntitiesApplication;
 import com.project.entities.UserTable;
+import com.project.exceptions.IDNotFoundExceptions;
 import com.project.repo.AcRepo;
 
 
@@ -77,6 +78,13 @@ class createTest {
 		long id = 1L;
 		Mockito.when(this.repo.existsById(id)).thenReturn(true);
 		Assertions.assertTrue(this.service.delete(id));
+	}
+	
+	@Test
+	void TestDeleteExceptions() {
+		long id = 0;
+		Mockito.when(this.repo.existsById(id)).thenReturn(false);
+		Assertions.assertThrows(IDNotFoundExceptions.class, () -> this.service.delete(id));
 	}
 
 }

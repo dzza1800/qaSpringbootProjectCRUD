@@ -14,8 +14,8 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.ActiveProfiles;
 import com.project.DTO.orderDTO;
 import com.project.boot.EntitiesApplication;
-import com.project.entities.ItemsTable;
 import com.project.entities.orderTable;
+import com.project.exceptions.IDNotFoundExceptions;
 import com.project.repo.OrdersRepo;
 
 
@@ -79,11 +79,31 @@ class orderTest {
 		Mockito.when(this.repo.existsById(id)).thenReturn(true);
 		Assertions.assertTrue(this.service.delete(id));
 	}
+	@Test
+	void TestDeleteExceptions() {
+		long id = 0;
+		Mockito.when(this.repo.existsById(id)).thenReturn(false);
+		Assertions.assertThrows(IDNotFoundExceptions.class, () -> this.service.delete(id));
+	}
+	@Test
+	void TestDeleteUnique() {
+		orderTable ent = new orderTable(1,100, 100 ,true);
+		long id = 100;
+		Mockito.when(this.repo.findAllUniqueBySQL(id)).thenReturn(ent);
+		Assertions.assertTrue(this.service.deleteUniqueID(id));
+	}
+	
+	@Test
+	void TestDeleteUniqueException() {
+		
+		long id = 1;
+		Assertions.assertThrows(IDNotFoundExceptions.class, () -> this.service.deleteUniqueID(id));
+	}
 	
 	@Test
 	void TestCreateUnique() {
 		orderTable res = new orderTable(1L, 2, true);
-		Assertions.assertEquals(service.createUnique(res), "Order created");
+		Assertions.assertEquals(service.createUnique(res), "Order Created");
 	}
 
 }

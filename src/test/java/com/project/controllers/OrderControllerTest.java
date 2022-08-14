@@ -10,6 +10,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
+
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
@@ -18,7 +19,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 import java.util.ArrayList;
 import java.util.List;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.DTO.orderDTO;
 import com.project.boot.EntitiesApplication;
@@ -45,10 +45,12 @@ class OrderControllerTest {
 	final long id1 = 1L;
 	final orderTable orderCreate = new orderTable (1, 123343241, 5, true);
 	final long id2 = 2L;
-	final orderTable  orderRead = new orderTable (2, 123343242, 6, false);
+	final orderTable  orderUpdate = new orderTable (2, 123343242, 6, false);
 	final long id3 = 3L;
+	final orderTable  orderRead = new orderTable (3, 123343243, 5, false);
 	
-	final orderTable  orderUpdate = new orderTable (3, 123343243, 5, false);
+	final long idUnique = 4L;
+	final orderTable orderUnique = new orderTable(0, 7, true);
 	@BeforeEach
 	void dbWipe() {
 		
@@ -76,8 +78,8 @@ class OrderControllerTest {
 	
 		List<orderDTO> Acc = new ArrayList<orderDTO>();
 		orderRead.setId(id2);
-		Acc.add(MapToDTO(orderRead));
 		Acc.add(MapToDTO(orderUpdate));
+		//Acc.add(MapToDTO(orderUpdate));
         try {
 			this.mock
 			    .perform(get("/getAllOrders")
@@ -95,14 +97,12 @@ class OrderControllerTest {
 	@Test
 	void testDeleteController(){
 		long id = id1;
-		boolean exists = false;
         try {
 			this.mock
 			    .perform(put("/deleteOrder?id=" + id)
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON))
-			    .andExpect(status().isOk())
-			    .andExpect(content().json(this.objMap.writeValueAsString(exists)));
+			    .andExpect(status().isOk());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -110,15 +110,13 @@ class OrderControllerTest {
     }
 	@Test
 	void testDeleteUniqueController(){
-		long id = 1213;
-		boolean exists = false;
+		long id = 123343243;
         try {
 			this.mock
 			    .perform(put("/deleteOrderUnique?id=" + id)
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON))
-			    .andExpect(status().isOk())
-			    .andExpect(content().json(this.objMap.writeValueAsString(exists)));
+			    .andExpect(status().isOk());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -128,9 +126,10 @@ class OrderControllerTest {
 	@Test
     void testUpdateController(){
 		orderTable Acc = orderUpdate;
+		long id = id2;
         try {
 			this.mock
-			    .perform(put("/updateOrder?id=" + id3)
+			    .perform(put("/updateOrder?id=" + id)
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON)
 			        .content(this.objMap.writeValueAsString(Acc)))

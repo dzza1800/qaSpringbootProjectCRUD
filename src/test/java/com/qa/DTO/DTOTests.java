@@ -1,6 +1,5 @@
 package com.qa.DTO;
 
-import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -24,7 +23,6 @@ public class DTOTests {
 		Assertions.assertEquals(res.getId(), 1L);
 		Assertions.assertEquals(res.getPassword(), "123");
 		Assertions.assertEquals(res.getAccName(), "test");
-		Assertions.assertEquals(res.getAccName(), "test");
 	}
 	@Test
 	void TestItemDTO() {
@@ -42,6 +40,42 @@ public class DTOTests {
 		Assertions.assertEquals(res.getId(), 1L);
 		Assertions.assertEquals(res.getOrderUniqueID(),123343241 );
 		Assertions.assertEquals(res.getOrderQuantity(), 5);
+	}
+	@Test
+	void DTOUserEquals() {
+		UserTable ent = new UserTable(1L, "123", "test");
+		UserTable ent2 = new UserTable(1L, "123", "test");
+		
+		AcDTO res = new AcDTO(ent);
+		AcDTO res2 = new AcDTO(ent2);
+		
+		Assertions.assertTrue(res.equals(res2));
+		Assertions.assertTrue(res.hashCode()==res2.hashCode());
+
+	}
+	@Test
+	void DTOItemsEquals() {
+		
+		ItemsTable ent = new ItemsTable(1L, "Test", 123, 12, 1);
+		ItemsTable ent2 = new ItemsTable(1L, "Test", 123, 12, 1);
+		
+		ItemsDTO res = new ItemsDTO(ent);
+		ItemsDTO res2 = new ItemsDTO(ent2);
+		
+		Assertions.assertTrue(res.equals(res2));
+		Assertions.assertTrue(res.hashCode()==res2.hashCode());
+	}
+	
+	@Test
+	void DTOOrdersEquals() {
+		
+		orderTable ent = new orderTable(1L, 123343241L, 5, true);
+		orderTable ent2 = new orderTable(1L, 123343241L, 5, true);
+		
+		orderDTO res = new orderDTO(ent);
+		orderDTO res2 = new orderDTO(ent2);
+		Assertions.assertTrue(res.equals(res2));
+		Assertions.assertTrue(res.hashCode()==res2.hashCode());
 	}
 
 }

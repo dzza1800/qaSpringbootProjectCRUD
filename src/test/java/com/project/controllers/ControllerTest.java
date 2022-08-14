@@ -100,8 +100,7 @@ class ControllerTest {
 			    .perform(put("/delete?id=" + id)
 			        .accept(MediaType.APPLICATION_JSON)
 			        .contentType(MediaType.APPLICATION_JSON))
-			    .andExpect(status().isOk())
-			    .andExpect(content().json("false"));
+			    .andExpect(status().isOk());
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

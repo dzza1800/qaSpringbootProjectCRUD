@@ -8,15 +8,15 @@ package com.project.repo;
 import java.util.Optional;
 
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import com.project.boot.EntitiesApplication;
-import com.project.entities.UserTable;
+
 import com.project.entities.orderTable;
 
 

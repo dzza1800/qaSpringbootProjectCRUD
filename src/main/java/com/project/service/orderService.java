@@ -48,7 +48,7 @@ public String createUnique(orderTable entity) {
 	long range = 9999999L;
 	long number = (long)(rand.nextDouble()*range);
     this.repo.saveOrdersBySQL(number, entity.getOrderQuantity(), entity.getProcess());
-    return "Order created"; 
+    return "Order Created"; 
 }
 
 
@@ -64,10 +64,14 @@ public boolean delete(long id) {
 	}
  }
 public boolean deleteUniqueID(long id) {
-	orderTable ent = this.repo.findAllUniqueBySQL(id);
+	if(this.repo.findAllUniqueBySQL(id) == null) {
+		throw new IDNotFoundExceptions();
+	}
+	else {
     this.repo.deleteOrdersBySQLUniqueID(id);
-    boolean isExist = this.repo.existsById(id);
+    boolean isExist = true;
     return isExist; 
+   }
 }
 
 
