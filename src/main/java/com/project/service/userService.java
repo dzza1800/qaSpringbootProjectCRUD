@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.DTO.AcDTO;
 import com.project.entities.UserTable;
-import com.project.exceptions.AccountNotFoundExceptions;
+import com.project.exceptions.IDNotFoundExceptions;
 import com.project.repo.AcRepo;
 
 
@@ -42,10 +42,15 @@ public AcDTO create(UserTable entity) {
 
 
 public boolean delete(long id) {
-	  UserTable ent = this.repo.findById(id).orElseThrow(AccountNotFoundExceptions::new);
+	if(!this.repo.existsById(id)) {
+		throw new IDNotFoundExceptions();
+	}
+	else {
+
       this.repo.deleteById(id);
       boolean isExist = this.repo.existsById(id);
       return isExist; 
+	}
      
  }
 

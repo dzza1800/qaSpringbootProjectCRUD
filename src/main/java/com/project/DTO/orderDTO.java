@@ -19,6 +19,7 @@ public int orderQuantity;
 public boolean isProcessing;
 
 public orderDTO(orderTable entity) {
+	super();
 	this.id = entity.getId();
 	this.orderUniqueID = entity.getOrderUniqueID();
 	this.orderQuantity = entity.getOrderQuantity();

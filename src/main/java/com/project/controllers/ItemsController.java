@@ -5,7 +5,6 @@ import java.util.*;
 import javax.websocket.server.PathParam;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -41,19 +40,24 @@ public class ItemsController {
 public ItemsDTO create(@RequestBody ItemsTable entity) {
       return ac.create(entity);
  }
+@PostMapping("/createUnique")
+public String createUnique(@RequestBody ItemsTable entity) {
+      return ac.createUni(entity);
+ }
+@PutMapping("/deleteItemUnique")
+public boolean deleteUniqueID(@PathParam("id") long id) {
+      return ac.deleteUniqueID(id);
+ }
 
-@PutMapping("/deleteUsers")
+
+@PutMapping("/deleteItem")
 public boolean delete(@PathParam("id") long id) {
       return ac.delete(id);
  }
 
-@PutMapping("/updateUsers")
+
+@PutMapping("/updateItem")
 public ItemsDTO update(@PathParam("id") long id, @RequestBody ItemsTable entity) {
 	return ac.update(id, entity);
  }
-
-@GetMapping("/test2")
-    public String pageMessage() {
-	       return "<h1>Message Here</h1>";
-     }
 }

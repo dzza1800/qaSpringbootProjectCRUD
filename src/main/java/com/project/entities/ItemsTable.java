@@ -4,6 +4,7 @@ package com.project.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 
@@ -16,19 +17,25 @@ import lombok.*;
 @Entity
 public class ItemsTable {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
 	
 	@Column
 	String ItemName;
 	
 	@Column(unique = true, nullable = false)
-	String uniqueItemID;
+	private int uniqueItemID;
 	
 	@Column(nullable = false)
-	long price;
+	private double price;
 	
 	@Column(nullable = false)
-	int stock;
+	private int stock;
+	
+	public ItemsTable(String ItemName, double price, int stock){
+		this.ItemName = ItemName;
+		this.price = price;
+		this.stock = stock;
+	}
 
 }

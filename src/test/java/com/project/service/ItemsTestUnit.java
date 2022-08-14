@@ -1,31 +1,19 @@
 package com.project.service;
 
-
-
-
-
-
-
 import java.util.ArrayList;
 import java.util.List;
-
+import java.util.Optional;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.test.context.ActiveProfiles;
-
-import com.project.DTO.AcDTO;
 import com.project.DTO.ItemsDTO;
 import com.project.boot.EntitiesApplication;
 import com.project.entities.ItemsTable;
-import com.project.entities.UserTable;
-import com.project.repo.AcRepo;
+import com.project.exceptions.IDNotFoundExceptions;
 import com.project.repo.ItemsRepo;
 
 
@@ -43,17 +31,22 @@ class ItemsTestUnit {
 	
 	@Test
 	void TestCreate() {
-		ItemsTable ent = new ItemsTable( 0, "car", "124unituqdate", 12354L, 3);
-		Mockito.when(this.repo.save(ent)).thenReturn(ent);
+		ItemsTable res = new ItemsTable(1L, "car", 1234234234, 12354, 3);
+		Assertions.assertEquals(res.getId(), 1L);
+		Assertions.assertEquals(res.getItemName(), "car");
+		Assertions.assertEquals(res.getUniqueItemID(), 1234234234);
+		Assertions.assertEquals(res.getPrice(), 12354);
+		Assertions.assertEquals(res.getStock(), 3);
+		Mockito.when(this.repo.save(res)).thenReturn(res);
  
-		Assertions.assertEquals(service.create(ent), service.MapToDTO(ent));
-		Mockito.verify(this.repo, Mockito.times(1)).save(ent);	
+		Assertions.assertEquals(service.create(res), service.MapToDTO(res));
+		Mockito.verify(this.repo, Mockito.times(1)).save(res);	
 
 	}
 	
 	@Test
 	void TestRead() {
-		ItemsTable ent = new ItemsTable( 0, "car", "124unituqdate", 12354L, 3);
+		ItemsTable ent = new ItemsTable(0, "car", 1234234234, 12354, 3);
 		ItemsDTO dto = new ItemsDTO(ent);
 		List<ItemsTable> account = new ArrayList<ItemsTable>();
 		List<ItemsDTO> accDTO = new ArrayList<ItemsDTO>();
@@ -64,8 +57,53 @@ class ItemsTestUnit {
 	}
 	
 	@Test
+	void TestUpdate() {
+		ItemsTable ent = new ItemsTable(1, "car", 1234234234, 12354, 3);
+		
+		Mockito.when(this.repo.save(ent)).thenReturn(ent);
+		Mockito.when(this.repo.findById(1L)).thenReturn(Optional.of(ent));
+		
+		ent = new ItemsTable(0, "Plane", 123, 100, 7);
+		ItemsDTO updatedEnt = this.service.update(1L, ent);
+	    //as the unique item id is set not to change, it shouldn't change at all
+		Assertions.assertEquals(updatedEnt.getUniqueItemID(), 1234234234);
+		Assertions.assertEquals(updatedEnt.getItemName(), "Plane");
+		Assertions.assertEquals(updatedEnt.getPrice(), 100);
+		Assertions.assertEquals(updatedEnt.getStock(), 7);
+		
+		
+	}
+	
+	@Test
 	void TestDelete() {
-		Mockito.doNothing().when(repo).delete(null);
+		long id = 1L;
+		Mockito.when(this.repo.existsById(id)).thenReturn(true);
+		Assertions.assertTrue(service.delete(id));
+	}
+	
+	@Test
+	void TestDeleteExceptions() {
+		long id = 0;
+		Mockito.when(this.repo.existsById(id)).thenReturn(false);
+		Assertions.assertThrows(IDNotFoundExceptions.class, () -> this.service.delete(id));
+	}
+	@Test
+	void TestDeleteUnique() {
+		ItemsTable ent = new ItemsTable(1, "car", 1234234234, 12354, 3);
+		long id = 1234234234L;
+		Mockito.when(this.repo.findItemByUniqueIDSQL(id)).thenReturn(ent);
+		Assertions.assertTrue(service.deleteUniqueID(id));
+	}
+	@Test
+	void TestDeleteUniqueException() {
+		
+		long id = 1;
+		Assertions.assertThrows(IDNotFoundExceptions.class, () -> this.service.deleteUniqueID(id));
+	}
+	@Test
+	void TestCreateUnique() {
+		ItemsTable res = new ItemsTable("car", 12354, 3);
+		Assertions.assertEquals(service.createUni(res), "Item created");
 	}
 
 }

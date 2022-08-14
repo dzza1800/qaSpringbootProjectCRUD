@@ -2,6 +2,7 @@ package com.project.service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
@@ -9,7 +10,7 @@ import org.springframework.stereotype.Service;
 
 import com.project.DTO.ItemsDTO;
 import com.project.entities.ItemsTable;
-import com.project.exceptions.AccountNotFoundExceptions;
+import com.project.exceptions.IDNotFoundExceptions;
 import com.project.repo.ItemsRepo;
 
 
@@ -43,13 +44,26 @@ public ItemsDTO create(ItemsTable entity) {
 
 
 public boolean delete(long id) {
-	  ItemsTable ent = this.repo.findById(id).orElseThrow(AccountNotFoundExceptions::new);
+	if(!this.repo.existsById(id)) {
+		throw new IDNotFoundExceptions();
+	}
+	else {
+	  //ItemsTable ent = this.repo.findById(id).orElseThrow(IDNotFoundExceptions::new);
       this.repo.deleteById(id);
       boolean isExist = this.repo.existsById(id);
       return isExist; 
-     
+	}
  }
-
+public boolean deleteUniqueID(long id) {
+	if(this.repo.findItemByUniqueIDSQL(id) == null) {
+		throw new IDNotFoundExceptions();
+	}
+	else {
+    this.repo.deleteItemBySQL(id);
+    boolean isExist = true;
+    return isExist; 
+	}
+}
 
 public ItemsDTO update(long id, ItemsTable entity) {
 	
@@ -61,5 +75,13 @@ public ItemsDTO update(long id, ItemsTable entity) {
 	entity = this.repo.save(ent);
 	return this.MapToDTO(entity);
  }
+
+public String createUni(ItemsTable entity) {
+	Random rand = new Random();
+	long range = 9999999L;
+	long number = (long)(rand.nextDouble()*range);
+    this.repo.saveItemBySQL(entity.getItemName(),entity.getPrice(),entity.getStock(), number);
+    return "Item created"; 
+}
 
 }

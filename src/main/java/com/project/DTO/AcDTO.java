@@ -9,10 +9,10 @@ public class AcDTO {
 	private long id;
 	
 
-	String password;
+	private String password;
 	
 
-	String accName;
+	public String accName;
 	
 	AcDTO(){
 		super();

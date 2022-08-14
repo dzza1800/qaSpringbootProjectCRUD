@@ -2,8 +2,6 @@ package com.project.DTO;
 
 
 import com.project.entities.ItemsTable;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,11 +10,13 @@ import lombok.NoArgsConstructor;
 public class ItemsDTO {
 	private long id;
 	
-	String ItemName;
+	 String ItemName;
 	
-	long price;
+	 double price;
 	
-	int stock;
+	 int stock;
+	
+	 int uniqueItemID;
 
 	public ItemsDTO(ItemsTable entity){
 		super();
@@ -24,6 +24,7 @@ public class ItemsDTO {
 		this.ItemName = entity.getItemName();
 		this.price = entity.getPrice();
 		this.stock = entity.getStock();
+		this.uniqueItemID = entity.getUniqueItemID();
 	}
 
 }

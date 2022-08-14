@@ -23,8 +23,21 @@ public class orderTable {
 	private long orderUniqueID;
 	
 	@Column(unique = false, nullable = false)
-	public int orderQuantity;
+	private int orderQuantity;
 	
 	@Column(unique = false, nullable = false)
-	public boolean isProcessing;
+	private boolean isProcessing;
+	
+	public void setProcess(boolean process) {
+		this.isProcessing = process;
+	}
+	public boolean getProcess() {
+		return this.isProcessing;
+	}
+	public orderTable(long id, int orderQuantity, boolean isProcessing) {
+		// TODO Auto-generated constructor stub
+		this.id = id;
+		this.orderQuantity = orderQuantity;
+		this.isProcessing = isProcessing;
+	}
 }

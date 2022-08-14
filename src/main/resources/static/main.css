@@ -1,3 +1,8 @@
+body{
+    background-color:aliceblue;
+    animation-name: tableFade;
+    animation-duration: 3s;
+}
 #time{
     position: fixed;
     bottom: 0px;
@@ -6,26 +11,35 @@
     font-size: 18px;
 }
 h1{
-    font-family: cursive;
+    font-family: sans-serif;
     position: absolute;
     left:10%;
 }
-.headImg{
+h2{
+    font-family: sans-serif;
+    position: absolute;
+    left:10%;
+    top:5%;
+}
+.headImgLeft{
     position: absolute;
     width: 10%;
     top: 0px;
     left:0%;
 }
-form{
-    display: flex;
-    justify-content: center;
-    align-content: center;
+.headImgRight{
+    position: absolute;
+    width: 10%;
+    top: 0px;
+    transform: scaleX(-1);
+    right:0%;
 }
 table {
   font-family: sans-serif;
   border-collapse: separate;
   width: 50%;
   margin:auto;
+  
 }
 
 td, th {
@@ -33,4 +47,136 @@ td, th {
   text-align: left;
   padding: 8px;
   text-align: center;
+}
+#Userbutton{
+    color: black;
+    border: 1px solid black;
+    width: 20%;
+    cursor: pointer;
+    display: block;
+    
+}
+#Userbutton:hover{
+    background-color: black;
+    color: white;
+    transform: scale(1.3);
+}
+
+#UserClosebutton{
+    color: black;
+    border: 1px solid black;
+    width: 20%;
+    cursor: pointer;
+}
+#UserClosebutton:hover{
+    background-color: black;
+    color: white;
+    transition: 1s;
+     transform: scale(1.3);
+}
+
+#FormButton{
+    display: inline-block;
+    color: black;
+    border: 1px solid black;
+    width: 20%;
+    
+    cursor: pointer;
+}
+#FormButton:hover{
+    background-color: black;
+    color: red;
+    transition: 1s;
+    transform: scale(1.3);
+}
+#UserSection{
+   display: none;
+    animation-name: tableFade;
+    animation-duration: 1s;
+
+}
+#CoinsSection{
+   display: none;
+          animation-name: tableFade;
+    animation-duration: 1s;
+}
+#OrderSection{
+   display: none;
+              animation-name: tableFade;
+    animation-duration: 1s;
+}
+#CreateUserForm{
+    display: none;
+    justify-content: center;
+}
+#UpdateUserForm{
+    display: none;
+    justify-content: center;
+
+}
+#DeleteUserForm{
+    display: none;
+    justify-content: center;
+
+}
+#CreateCoinForm{
+    display: none;
+    justify-content: center;
+
+}
+#UpdateCoinForm{
+    display: none;
+    justify-content: center;
+
+}
+#DeleteCoinForm{
+    display: none;
+    justify-content: center;
+
+}
+#CreateOrderForm{
+    display: none;
+    justify-content: center;
+
+}
+#UpdateOrderForm{
+    display: none;
+    justify-content: center;
+
+}
+#DeleteOrderForm{
+    display: none;
+    justify-content: center;
+
+}
+@keyframes tableFade{
+    from{opacity: 0}
+    to{opacity: 1}
+}
+
+ul{
+    position: absolute;
+    top: 200px;
+    width: 20%;
+    padding: 10px;
+    border: 1px solid gray;
+    text-align: center;
+    margin: auto;
+}
+li{
+    list-style-type: none;
+    padding: 10px;
+}
+iframe{
+    position: fixed;
+    bottom: 10%;
+    height: 450px;
+    width:420px;
+
+}
+#submitButton{
+    background-color: aliceblue;
+    padding: 10px;
+    right: 10px;
+    margin: 1px solid black;
 }
